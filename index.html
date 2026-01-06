@@ -18,14 +18,45 @@
     .nav-left { font-size: 1.4em; font-weight: 700; color: #004d99; }
     .nav-left a { text-decoration: none; }
     .nav-left .home-link { padding: 10px 18px; border-radius: 8px; font-weight: 600; color: white; background-color: #004d99; margin-right: 15px; }
-    .nav-right a { padding: 10px 18px; border-radius: 8px; font-weight: 600; color: white; text-decoration: none; margin-left: 10px; margin-top: 5px; display: inline-block;}
     
-    /* *** แก้ไขตรงนี้: เปลี่ยนสีปุ่มบัญชีของฉัน (User Dashboard) *** */
+    /* **[ปรับปรุง] nav-right ให้ยืดหยุ่นขึ้น และจัดระเบียบปุ่ม Admin/Logout** */
+    .nav-right { 
+        display: flex; 
+        flex-wrap: wrap; /* ให้ปุ่มลงบรรทัดได้เมื่อหน้าจอเล็ก */
+        gap: 8px; /* **เพิ่มระยะห่าง 8px ระหว่างปุ่ม** */
+        align-items: center;
+    }
+    
+    .nav-right a { 
+        padding: 10px 18px; 
+        border-radius: 8px; 
+        font-weight: 600; 
+        color: white; 
+        text-decoration: none; 
+        transition: background-color 0.3s;
+        display: inline-flex; /* ใช้ flex เพื่อให้ icon และ text อยู่ตรงกลาง */
+        align-items: center;
+    }
+    
+    .nav-right a i {
+        margin-right: 6px;
+    }
+    
+    /* สไตล์ปุ่ม Admin (จัดการทั้งหมด, รายการรายวัน, จัดการสมาชิก) */
+    .nav-right .admin-core-link { 
+        background-color: #007bff; /* จัดการทั้งหมด (สีน้ำเงิน) */
+    }
+    .nav-right .daily-link { 
+        background-color: #17a2b8; /* รายการรายวัน (สีฟ้าเทอร์ควอยซ์) */
+    }
+    .nav-right .member-link { 
+        background-color: #28a745; /* จัดการสมาชิก (สีเขียว) */
+    }
+
     .nav-right .user-dash-link { background-color: #ff9800; } 
+    .nav-right .logout-link { background-color: #dc3545; } /* Logout (สีแดง) */
+    .nav-right .admin-link { background-color: #5a6268; } /* ใช้สำหรับปุ่ม Login/Logout/Admin ทั่วไป */
     
-    .nav-right .admin-link { background-color: #5a6268; } 
-    .nav-right .logout-link { background-color: #dc3545; } 
-    .nav-right .daily-link { background-color: #ffc107; }
 
     /* ---------------------------------- */
     /* CSS: Form, Submission & Login/Register */
@@ -78,24 +109,116 @@
     /* ---------------------------------- */
     /* CSS: User & Admin Dashboard List */
     /* ---------------------------------- */
-    #adminContent table { width: 100%; border-collapse: collapse; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
-    #adminContent th { background-color: #004d99; color: white; padding: 12px 10px; font-weight: 600; font-size: 0.9em; text-align: left; }
-    #adminContent td { padding: 10px; font-size: 0.9em; border-bottom: 1px solid #f0f0f0; }
+    #adminContent table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        border: 1px solid #e0e0e0; 
+        border-radius: 8px; 
+        overflow: hidden; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* เพิ่มเงาเล็กน้อย */
+    }
+    #adminContent th { 
+        background-color: #004d99; 
+        color: white; 
+        padding: 12px 10px; /* เพิ่ม padding ในหัวตาราง */
+        font-weight: 600; 
+        font-size: 0.9em; 
+        text-align: left; 
+    }
+    #adminContent td { 
+        padding: 12px 10px; /* **[ปรับปรุง] เพิ่ม Padding ทั้งแนวนอนและแนวตั้ง** */
+        font-size: 0.85em; /* **[ปรับปรุง] ลดขนาด Font เล็กน้อยเพื่อให้มีพื้นที่** */
+        border-bottom: 1px solid #f0f0f0; 
+        white-space: nowrap; /* ป้องกันไม่ให้ข้อความสั้นๆ ขึ้นบรรทัด */
+    }
     #adminContent tr:nth-child(even) { background-color: #f7f9fb; }
+    
+    /* **[ใหม่] ปรับความกว้างของคอลัมน์สำคัญให้เหมาะสม** */
+    #adminContent table th:nth-child(1), 
+    #adminContent table td:nth-child(1) { 
+        width: 12%; /* Timestamp */
+        font-size: 0.8em; /* ทำให้วันที่/เวลาดูไม่ยาวเกินไป */
+    }
+    #adminContent table th:nth-child(2), 
+    #adminContent table td:nth-child(2) { 
+        width: 10%; /* BookingId */
+        font-weight: 600;
+        color: #007bff;
+    }
+    #adminContent table th:nth-child(3), 
+    #adminContent table td:nth-child(3) { 
+        width: 10%; /* Status */
+    }
+    #adminContent table th:nth-child(9), 
+    #adminContent table td:nth-child(9) { 
+        width: 8%; /* เวลา */
+    }
+    #adminContent table th:nth-child(10), 
+    #adminContent table td:nth-child(10) { 
+        width: 10%; /* Action */
+    }
+
 
     .status-badge { font-weight: 600; padding: 4px 10px; border-radius: 12px; white-space: nowrap; }
     .status-รอการยืนยัน { background-color: #ffc107; color: #333; }
     .status-ยืนยันแล้ว { background-color: #28a745; color: white; }
     .status-Registered { background-color: #007bff; color: white; }
+    .status-ขอยกเลิก { background-color: #ff5722; color: white; } 
 
     .user-profile-box { background: #e6f7ff; border: 1px solid #91d5ff; padding: 20px; border-radius: 10px; margin-bottom: 25px; }
-    .user-card-header { background-color: #f0fdf4; padding: 15px; border-radius: 8px 8px 0 0; border: 1px solid #d4edda; border-bottom: none; font-weight: 700; color: #1e7e34;}
-    .user-booking-item { background-color: white; border: 1px solid #eee; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-    .user-card-body { padding: 15px; display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 10px; border-bottom: 1px solid #eee;}
-    .user-card-footer { padding: 10px 15px; text-align: right; background-color: #f7f9fb; border-radius: 0 0 8px 8px;}
+    .user-card-header { 
+        background-color: #f0fdf4; 
+        padding: 15px; 
+        border-radius: 8px 8px 0 0; 
+        border: 1px solid #d4edda; 
+        border-bottom: none; 
+        font-weight: 700; 
+        color: #1e7e34;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .user-card-header span {
+        white-space: nowrap;
+    }
+    .user-card-body { 
+        padding: 15px; 
+        display: grid; 
+        grid-template-columns: 1fr 2fr 1fr; 
+        gap: 10px; 
+        border-bottom: 1px solid #eee;
+    }
+    .user-card-footer { 
+        padding: 10px 15px; 
+        background-color: #f7f9fb; 
+        border-radius: 0 0 8px 8px;
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+    }
 
-    .daily-booking-card { background-color: #fff; border: 1px solid #e0e0e0; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: grid; grid-template-columns: 1fr 3fr; gap: 15px; align-items: center; }
-    .card-time { font-size: 1.8em; font-weight: 700; color: #004d99; text-align: center; border-right: 2px solid #f0f0f0; padding-right: 15px; }
+    /* **Daily View Styles** */
+    .daily-booking-card { 
+        background-color: #fff; 
+        border: 1px solid #e0e0e0; 
+        padding: 20px; 
+        border-radius: 10px; 
+        margin-bottom: 15px; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+        display: grid; 
+        grid-template-columns: 1fr 3fr; 
+        gap: 15px; 
+        align-items: center; 
+    }
+    .card-time { 
+        font-size: 1.8em; 
+        font-weight: 700; 
+        color: #004d99; 
+        text-align: center; 
+        border-right: 2px solid #f0f0f0; 
+        padding-right: 15px; 
+    }
   </style>
 </head>
 <body>
@@ -113,13 +236,16 @@
     </div>
     <div class="nav-right">
         
-        <a href="#admin" onclick="showPage('admin')" class="admin-link" id="adminDashboardLink" style="display:none;">
-            <i class="fas fa-tasks"></i> จัดการระบบ
+        <a href="#admin" onclick="showPage('admin')" class="admin-core-link" id="adminDashboardLink" style="display:none;">
+            <i class="fas fa-tasks"></i> จัดการทั้งหมด
         </a>
         <a href="#daily" onclick="showPage('daily')" class="daily-link" id="dailyViewLink" style="display:none;">
             <i class="fas fa-calendar-day"></i> รายการรายวัน
         </a>
-
+        <a href="#members" onclick="showPage('members')" class="member-link" id="memberListLink" style="display:none;">
+            <i class="fas fa-users"></i> จัดการสมาชิก
+        </a>
+        
         <a href="#user" onclick="showPage('user')" class="user-dash-link" id="userDashboardLink" style="display:none;">
             <i class="fas fa-user-circle"></i> บัญชีของฉัน
         </a>
@@ -201,16 +327,27 @@
     </div>
 
     <div id="dailyContent" class="page-content" style="display:none;">
-        <h2><i class="fas fa-calendar-day"></i> รายการจองประจำวัน</h2>
+        <h2><i class="fas fa-calendar-day"></i> รายการจองประจำวัน (ยืนยันแล้ว)</h2>
         <div id="dailyFilter" style="display: flex; justify-content: center; align-items: center; margin-bottom: 30px; background-color: #f5f5f5; padding: 20px; border-radius: 10px;">
-            <label for="dailyDateInput" style="margin-right: 15px; font-size: 1.1em; color: #004d99; font-weight: 700;"><i class="fas fa-calendar-check"></i> เลือกวันที่:</label>
+            <label for="dailyDateInput" style="margin-right: 15px; font-size: 1.1em; color: #004d99; font-weight: 700;"><i class="fas fa-calendar-check"></i> เลือกวันที่ (เพื่อกรอง):</label>
             <input type="date" id="dailyDateInput" style="width: 250px; padding: 10px; border: 1px solid #ddd;">
         </div>
-        <div id="dailyCount"></div>
+        <div id="dailyCount" style="font-weight: 600; text-align: center; margin-bottom: 20px; font-size: 1.1em;"></div>
         <div id="dailyBookingsList">
             </div>
     </div>
-</div>
+    
+    <div id="membersContent" class="page-content" style="display:none;">
+        <h2><i class="fas fa-users"></i> ข้อมูลโปรไฟล์สมาชิกและสัตว์เลี้ยง</h2>
+        <div id="memberControlPanel" style="margin-bottom: 25px;">
+            <input type="text" id="memberSearchInput" placeholder="ค้นหาด้วยชื่อ/เบอร์โทร/อีเมล/ชื่อสัตว์เลี้ยง..." 
+                   style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px;">
+        </div>
+        <div id="memberCount" style="font-weight: 600; margin-bottom: 15px;"></div>
+        <div id="memberProfilesList">
+            </div>
+    </div>
+</div> 
 
 <script>
     // **********************************************
@@ -333,7 +470,72 @@
             if (document.getElementById('adminContent').style.display === 'block') {
                 displayAdminBookings();
             } else if (document.getElementById('dailyContent').style.display === 'block') {
-                displayDailyBookings(dailyDateInput.value);
+                // เมื่อยืนยันเสร็จ ให้เรียกแสดงรายการทั้งหมดอีกครั้ง
+                dailyDateInput.value ? displayDailyBookings(dailyDateInput.value) : displayAllConfirmedBookings();
+            }
+        }
+    }
+
+    function cancelBooking(bookingId) {
+        if (!confirm(`คุณต้องการยกเลิกการจองคิวรหัส: ${bookingId} ใช่หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้`)) return;
+
+        const bookings = loadBookings();
+        
+        // กรองเอาคิวที่มี BookingId ตรงกันออก
+        const updatedBookings = bookings.filter(record => record.BookingId !== bookingId);
+
+        if (updatedBookings.length < bookings.length) {
+            saveBookings(updatedBookings);
+            alert(`✅ คิว ${bookingId} ถูกยกเลิกเรียบร้อยแล้ว`);
+            
+            // รีเฟรชหน้า User Dashboard
+            displayUserBookings(getUserSession());
+        } else {
+             alert(`❌ ไม่พบคิวรหัส ${bookingId} ที่สามารถยกเลิกได้`);
+        }
+    }
+    
+    function requestCancelBooking(bookingId) {
+        if (!confirm(`คุณต้องการยื่นเรื่องขอยกเลิกการจองคิวรหัส: ${bookingId} ใช่หรือไม่? การกระทำนี้จะต้องรอการอนุมัติจาก Admin`)) return;
+
+        const bookings = loadBookings();
+        const index = bookings.findIndex(record => record.BookingId === bookingId);
+
+        if (index !== -1 && bookings[index].Status === 'ยืนยันแล้ว') {
+            bookings[index].Status = 'ขอยกเลิก'; // เปลี่ยนสถานะเป็น 'ขอยกเลิก'
+            saveBookings(bookings);
+            alert(`✅ คิว ${bookingId} ถูกยื่นเรื่องขอยกเลิกแล้ว กรุณารอการอนุมัติจากเจ้าหน้าที่`);
+            
+            // รีเฟรชหน้า User Dashboard
+            displayUserBookings(getUserSession());
+        } else {
+             alert(`❌ ไม่พบคิวรหัส ${bookingId} หรือสถานะไม่อนุญาตให้ยื่นเรื่อง`);
+        }
+    }
+    
+    function approveCancelBooking(bookingId) {
+        if (!getAdminSession()) {
+             alert('กรุณาเข้าสู่ระบบ Admin');
+             showPage('login');
+             return;
+        }
+
+        if (!confirm(`ยืนยันการอนุมัติการยกเลิกคิวรหัส: ${bookingId} ? การกระทำนี้จะลบรายการออกจากระบบ`)) return;
+
+        const bookings = loadBookings();
+        
+        // ลบคิวออกเหมือนกับ cancelBooking ทั่วไป
+        const updatedBookings = bookings.filter(record => record.BookingId !== bookingId);
+
+        if (updatedBookings.length < bookings.length) {
+            saveBookings(updatedBookings);
+            alert(`✅ คิว ${bookingId} ถูกอนุมัติยกเลิกและลบออกจากระบบแล้ว!`);
+            
+            // รีเฟรชหน้า Admin/Daily
+            if (document.getElementById('adminContent').style.display === 'block') {
+                displayAdminBookings();
+            } else if (document.getElementById('dailyContent').style.display === 'block') {
+                dailyDateInput.value ? displayDailyBookings(dailyDateInput.value) : displayAllConfirmedBookings();
             }
         }
     }
@@ -352,16 +554,18 @@
         document.getElementById('unifiedLogoutLink').style.display = isLoggedIn ? 'inline-block' : 'none';
         
         // Admin Links
-        document.getElementById('adminDashboardLink').style.display = isLoggedInAdmin ? 'inline-block' : 'none';
-        document.getElementById('dailyViewLink').style.display = isLoggedInAdmin ? 'inline-block' : 'none'; 
+        document.getElementById('adminDashboardLink').style.display = isLoggedInAdmin ? 'inline-flex' : 'none';
+        document.getElementById('dailyViewLink').style.display = isLoggedInAdmin ? 'inline-flex' : 'none'; 
+        document.getElementById('memberListLink').style.display = isLoggedInAdmin ? 'inline-flex' : 'none'; 
         
         // User Links
-        document.getElementById('userDashboardLink').style.display = isLoggedInUser ? 'inline-block' : 'none';
+        document.getElementById('userDashboardLink').style.display = isLoggedInUser ? 'inline-flex' : 'none';
 
         // จัดการความขัดแย้งในการแสดงปุ่ม
         if (isLoggedInUser) {
              document.getElementById('adminDashboardLink').style.display = 'none';
              document.getElementById('dailyViewLink').style.display = 'none';
+             document.getElementById('memberListLink').style.display = 'none';
         }
         if (isLoggedInAdmin) {
              document.getElementById('userDashboardLink').style.display = 'none';
@@ -376,7 +580,7 @@
         document.getElementById('loading').style.display = 'none';
         
         // Guard: Admin Access
-        if ((pageId === 'admin' || pageId === 'daily') && !getAdminSession()) {
+        if ((pageId === 'admin' || pageId === 'daily' || pageId === 'members') && !getAdminSession()) { 
              alert('คุณไม่มีสิทธิ์เข้าถึงหน้า Admin');
              showPage('login');
              return; 
@@ -403,12 +607,18 @@
             displayAdminBookings(); 
         } else if (pageId === 'daily') {
             document.getElementById('dailyContent').style.display = 'block';
-            document.getElementById('pageTitle').textContent = 'รายการจองประจำวัน';
-            const today = new Date().toISOString().split('T')[0];
-            if (!dailyDateInput.value) {
-                dailyDateInput.value = today;
-            }
-            displayDailyBookings(dailyDateInput.value);
+            document.getElementById('pageTitle').textContent = 'รายการจองประจำวัน (ยืนยันแล้ว)';
+            
+            // เมื่อเข้าหน้าให้แสดงรายการยืนยันแล้วทั้งหมดและเรียงจากใหม่ไปเก่า
+            dailyDateInput.value = ''; 
+            displayAllConfirmedBookings();
+            
+        } else if (pageId === 'members') { 
+            document.getElementById('membersContent').style.display = 'block';
+            document.getElementById('pageTitle').textContent = 'ข้อมูลโปรไฟล์สมาชิก';
+            document.getElementById('memberSearchInput').value = '';
+            displayMemberProfiles();
+            
         } else if (pageId === 'user') {
             document.getElementById('userContent').style.display = 'block';
             document.getElementById('pageTitle').textContent = 'ประวัติการจองสมาชิก';
@@ -432,12 +642,15 @@
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('bookingDate').min = today;
         
+        // เคลียร์ค่าเริ่มต้นของ Daily Date Input เพื่อให้แสดงทั้งหมดเมื่อเข้าหน้า
+        dailyDateInput.value = ''; 
+        
         if (hash === 'status') { // Handle removed status page
              showPage('booking');
              return;
         }
 
-        if ((getAdminSession() && (hash === 'admin' || hash === 'daily')) || (getUserSession() && hash === 'user')) {
+        if ((getAdminSession() && (hash === 'admin' || hash === 'daily' || hash === 'members')) || (getUserSession() && hash === 'user')) { 
             showPage(hash);
         } else if (hash) {
             showPage(hash);
@@ -445,8 +658,20 @@
              showPage('booking');
         }
         
+        // ปรับปรุง Event Listener: เรียก displayDailyBookings เมื่อมีวันที่, เรียก displayAllConfirmedBookings เมื่อล้างวันที่
         dailyDateInput.addEventListener('change', (e) => {
-            displayDailyBookings(e.target.value);
+            const selectedDate = e.target.value;
+            if (selectedDate) {
+                 displayDailyBookings(selectedDate); // ดูเฉพาะวันที่เลือก
+            } else {
+                 displayAllConfirmedBookings(); // หากล้างค่า ให้กลับไปดูทั้งหมด
+            }
+        });
+        
+        // เพิ่ม Event Listener สำหรับช่องค้นหาสมาชิก
+        const memberSearchInput = document.getElementById('memberSearchInput');
+        memberSearchInput.addEventListener('keyup', (e) => {
+             displayMemberProfiles(e.target.value.trim());
         });
     };
     
@@ -458,7 +683,7 @@
         const box = document.getElementById('loginRegisterBox');
         box.className = isAdmin ? 'auth-box admin' : 'auth-box';
         const title = isAdmin ? '<i class="fas fa-lock"></i> เข้าสู่ระบบผู้ดูแลระบบ' : '<i class="fas fa-user-check"></i> เข้าสู่ระบบสมาชิก';
-        const placeholder = isAdmin ? 'รหัสผ่าน: 123456' : 'เบอร์โทรศัพท์ (ใช้เป็นรหัสผ่าน)';
+        const placeholder = isAdmin ? 'สำหรับผู้ดูแล' : 'เบอร์โทรศัพท์ (ใช้เป็นรหัสผ่าน)';
         const inputType = isAdmin ? 'password' : 'tel';
         const action = isAdmin ? 'doAdminLogin(event)' : 'doUserLogin(event)';
         
@@ -679,7 +904,7 @@
     }
 
     // **********************************************
-    // 5. Display Functions (Admin/User)
+    // 5. Display Functions (Admin/User/Daily/Members)
     // **********************************************
 
     function displayUserBookings(ownerTel) {
@@ -711,7 +936,9 @@
             bookingsListHTML += `
                 <div class="user-booking-item">
                     <div class="user-card-header" style="background-color: #ffe0b2; color: #ef6c00;">
-                        <i class="fas fa-calendar-times"></i> ไม่พบรายการจองที่ใช้งาน
+                        <span style="font-weight: 700; color: #ef6c00;">
+                            <i class="fas fa-calendar-times"></i> ไม่พบรายการจองที่ใช้งาน
+                        </span>
                     </div>
                     <p style="text-align: center; color: #6c757d; padding: 20px;">
                         คุณ ${userName} ยังไม่มีรายการจองที่ต้องเข้าใช้บริการ
@@ -720,21 +947,50 @@
         } else {
              filteredRecords.forEach(record => {
                 const statusClass = `status-${record.Status.replace(/\s/g, '')}`;
-                const notesDisplay = record.Notes ? `<p style="font-style: italic; color: #888;">หมายเหตุ: ${record.Notes}</p>` : '';
+                const notesDisplay = record.Notes ? `<span style="font-style: italic; color: #888;">หมายเหตุ: ${record.Notes}</span>` : '';
+                
+                let cancelButtonHTML = '';
+                if (record.Status === 'รอการยืนยัน') {
+                    // สำหรับคิวที่รอการยืนยัน: สามารถยกเลิกได้ทันที
+                    cancelButtonHTML = `
+                        <button onclick="cancelBooking('${record.BookingId}')" 
+                                style="background-color: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            <i class="fas fa-times-circle"></i> ยกเลิกคิว
+                        </button>
+                    `;
+                } else if (record.Status === 'ยืนยันแล้ว') {
+                     // สำหรับคิวที่ยืนยันแล้ว: ต้องยื่นเรื่องขอยกเลิก
+                     cancelButtonHTML = `
+                        <button onclick="requestCancelBooking('${record.BookingId}')" 
+                                style="background-color: #ff9800; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            <i class="fas fa-exclamation-triangle"></i> ยื่นเรื่องขอยกเลิก
+                        </button>
+                    `;
+                } else if (record.Status === 'ขอยกเลิก') {
+                    // สำหรับคิวที่ขอยกเลิก: แจ้งให้ทราบว่ากำลังรออนุมัติ
+                    cancelButtonHTML = `
+                        <span style="color: #ff5722; font-weight: 600;"><i class="fas fa-hourglass-half"></i> รอดำเนินการยกเลิก</span>
+                    `;
+                }
 
                 bookingsListHTML += `
                     <div class="user-booking-item">
                         <div class="user-card-header">
-                            <i class="fas fa-paw"></i> ${record.PetName} (ชนิด: ${record.PetSpecies || '-'})
+                            <span style="font-weight: 700; color: #1e7e34;">
+                                <i class="fas fa-paw"></i> ${record.PetName} (ชนิด: ${record.PetSpecies || '-'})
+                            </span>
+                            <span style="font-weight: 500; color: #007bff; font-size: 0.9em;">
+                                <i class="fas fa-calendar-alt"></i> ${record.BookingDate} <i class="fas fa-clock"></i> ${record.BookingTime}
+                            </span>
                         </div>
                         <div class="user-card-body">
                             <div><strong>รหัสคิว:</strong> ${record.BookingId}</div>
-                            <div><strong>วันที่/เวลา:</strong> ${record.BookingDate} (${record.BookingTime})</div>
+                            <div><strong>บริการที่จอง:</strong> ${record.ServiceType}</div>
                             <div><strong>สถานะ:</strong> <span class="status-badge ${statusClass}">${record.Status}</span></div>
                         </div>
                         <div class="user-card-footer">
-                            บริการ: ${record.ServiceType}
-                            ${notesDisplay}
+                            <div>${notesDisplay}</div>
+                            <div>${cancelButtonHTML}</div>
                         </div>
                     </div>
                 `;
@@ -778,6 +1034,10 @@
                         displayValue = `<button class="action-btn btn-confirm" onclick="confirmBooking('${record.BookingId}')">
                             <i class="fas fa-check"></i> ยืนยัน
                         </button>`;
+                    } else if (record.Status === 'ขอยกเลิก') {
+                        displayValue = `<button class="action-btn" onclick="approveCancelBooking('${record.BookingId}')" style="background-color: #dc3545;">
+                            <i class="fas fa-trash-alt"></i> อนุมัติยกเลิก
+                        </button>`;
                     } else {
                         displayValue = `<button class="action-btn btn-disabled"><i class="fas fa-check-double"></i> ยืนยันแล้ว</button>`;
                     }
@@ -791,50 +1051,54 @@
         container.innerHTML = tableHTML;
     }
     
-    function displayDailyBookings(selectedDate) {
+    // ฟังก์ชันแสดงรายการที่ยืนยันแล้วทั้งหมดและเรียงตามวันที่ล่าสุด (ถูกแก้ไขตามคำขอ)
+    function displayAllConfirmedBookings() {
         const allBookings = loadBookings();
         const dailyBookingsList = document.getElementById('dailyBookingsList');
         const dailyCount = document.getElementById('dailyCount');
-        
-        const filteredRecords = allBookings
-            .filter(record => record.BookingDate === selectedDate && record.BookingId !== 'USER_REG')
-            .sort((a, b) => a.BookingTime.localeCompare(b.BookingTime));
 
-        dailyCount.textContent = `📅 รายการจองวันที่ ${selectedDate}: ${filteredRecords.length} คิว`;
+        // กรองเฉพาะสถานะ 'ยืนยันแล้ว' 
+        let confirmedRecords = allBookings
+            .filter(record => record.BookingId !== 'USER_REG' && record.Status === 'ยืนยันแล้ว');
+            
+        // เรียงลำดับจากวันที่ล่าสุดไปเก่าที่สุด (Descending) โดยใช้ dateB - dateA
+        confirmedRecords.sort((a, b) => {
+            const dateA = new Date(a.BookingDate + 'T' + a.BookingTime);
+            const dateB = new Date(b.BookingDate + 'T' + b.BookingTime);
+            return dateB - dateA; // ทำให้ล่าสุดอยู่บนสุด
+        });
 
-        if (filteredRecords.length === 0) {
+        dailyCount.textContent = `📅 รายการจองที่ยืนยันแล้วทั้งหมด: ${confirmedRecords.length} คิว (เรียงจากใหม่สุด)`;
+
+        if (confirmedRecords.length === 0) {
             dailyBookingsList.innerHTML = `
                 <p style="text-align: center; color: #6c757d; padding: 20px; border: 1px dashed #ccc; border-radius: 8px;">
-                    ⚠️ ไม่พบข้อมูลการจองสำหรับวันนี้
+                    ⚠️ ไม่พบข้อมูลการจองที่ 'ยืนยันแล้ว' ในระบบ
                 </p>`;
             return;
         }
 
         let cardsHTML = '';
-        filteredRecords.forEach(record => {
-            const statusClass = `status-${record.Status.replace(/\s/g, '')}`;
-            
-            let actionButton = '';
-            if (record.Status === 'รอการยืนยัน') {
-                actionButton = `<button class="action-btn btn-confirm" onclick="confirmBooking('${record.BookingId}')" style="margin-top: 10px;">
-                    <i class="fas fa-check"></i> ยืนยันคิว
-                </button>`;
-            } else {
-                actionButton = `<button class="action-btn btn-disabled" style="margin-top: 10px;">
+        confirmedRecords.forEach(record => {
+            const actionButton = `<button class="action-btn btn-disabled" style="margin-top: 10px; background-color: #28a745;">
                     <i class="fas fa-check-double"></i> ยืนยันแล้ว
                 </button>`;
-            }
 
             cardsHTML += `
                 <div class="daily-booking-card">
                     <div class="card-time">
-                        ${record.BookingTime}
-                        <div class="status-badge ${statusClass}" style="font-size: 0.5em; margin-top: 5px; display: block;">${record.Status}</div>
+                        ${record.BookingDate.split('-').reverse().join('/')} 
+                        <br>
+                        <span style="font-size: 0.6em; font-weight: 400;">${record.BookingTime} น.</span>
+                        <div class="status-badge status-ยืนยันแล้ว" style="font-size: 0.5em; margin-top: 5px; display: block;">${record.Status}</div>
                     </div>
                     <div class="card-details">
                         <p><strong>รหัสคิว:</strong> ${record.BookingId}</p>
                         <p><strong>ชื่อเจ้าของ:</strong> ${record.OwnerName} (<span style="color: #007bff;">${record.OwnerTel}</span>)</p>
                         <p><strong>บริการ:</strong> ${record.ServiceType}</p>
+                        <p style="font-size: 0.9em; color: #6c757d;">
+                            <i class="fas fa-paw"></i> สัตว์เลี้ยง: ${record.PetName}
+                        </p>
                         ${actionButton}
                     </div>
                 </div>
@@ -843,6 +1107,151 @@
 
         dailyBookingsList.innerHTML = cardsHTML;
     }
+    
+    // ฟังก์ชันสำหรับแสดงรายการรายวันที่ถูกเลือกจากปฏิทิน
+    function displayDailyBookings(selectedDate) {
+        const allBookings = loadBookings();
+        const dailyBookingsList = document.getElementById('dailyBookingsList');
+        const dailyCount = document.getElementById('dailyCount');
+        
+        // กรองเฉพาะสถานะ 'ยืนยันแล้ว' และวันที่ตรงกัน
+        const filteredRecords = allBookings
+            .filter(record => 
+                record.BookingDate === selectedDate && 
+                record.BookingId !== 'USER_REG' &&
+                record.Status === 'ยืนยันแล้ว' 
+            )
+            // เรียงลำดับตามเวลา (ภายในวันที่เดียวกัน)
+            .sort((a, b) => a.BookingTime.localeCompare(b.BookingTime)); // เรียงตามเวลา 09:00 -> 11:00
+
+        dailyCount.textContent = `📅 รายการจองที่ยืนยันแล้วสำหรับวันที่ ${selectedDate}: ${filteredRecords.length} คิว`;
+
+        if (filteredRecords.length === 0) {
+            dailyBookingsList.innerHTML = `
+                <p style="text-align: center; color: #6c757d; padding: 20px; border: 1px dashed #ccc; border-radius: 8px;">
+                    ⚠️ ไม่พบข้อมูลการจองที่ 'ยืนยันแล้ว' สำหรับวันนี้
+                </p>`;
+            return;
+        }
+
+        let cardsHTML = '';
+        filteredRecords.forEach(record => {
+            const actionButton = `<button class="action-btn btn-disabled" style="margin-top: 10px; background-color: #28a745;">
+                    <i class="fas fa-check-double"></i> ยืนยันแล้ว
+                </button>`;
+
+            cardsHTML += `
+                <div class="daily-booking-card">
+                    <div class="card-time">
+                        ${record.BookingTime} น.
+                        <div class="status-badge status-ยืนยันแล้ว" style="font-size: 0.5em; margin-top: 5px; display: block;">${record.Status}</div>
+                    </div>
+                    <div class="card-details">
+                        <p><strong>รหัสคิว:</strong> ${record.BookingId}</p>
+                        <p><strong>ชื่อเจ้าของ:</strong> ${record.OwnerName} (<span style="color: #007bff;">${record.OwnerTel}</span>)</p>
+                        <p><strong>บริการ:</strong> ${record.ServiceType}</p>
+                        <p style="font-size: 0.9em; color: #6c757d;">
+                            <i class="fas fa-paw"></i> สัตว์เลี้ยง: ${record.PetName}
+                        </p>
+                        ${actionButton}
+                    </div>
+                </div>
+            `;
+        });
+
+        dailyBookingsList.innerHTML = cardsHTML;
+    }
+    
+    // ฟังก์ชันใหม่: แสดงข้อมูลโปรไฟล์สมาชิกและสัตว์เลี้ยง (สำหรับหน้า #members)
+    function displayMemberProfiles(searchTerm = '') {
+        const allBookings = loadBookings();
+        const memberProfilesList = document.getElementById('memberProfilesList');
+        const memberCount = document.getElementById('memberCount');
+
+        // 1. รวบรวมข้อมูลโปรไฟล์หลัก (Registered records)
+        const profilesMap = new Map();
+
+        allBookings.forEach(record => {
+            if (!record.OwnerTel) return;
+
+            const tel = record.OwnerTel;
+
+            if (!profilesMap.has(tel)) {
+                // Initial Profile Data 
+                profilesMap.set(tel, {
+                    OwnerName: record.OwnerName,
+                    OwnerEmail: record.OwnerEmail || 'ไม่พบอีเมล', 
+                    OwnerTelDisplay: record.OwnerTel,
+                    Bookings: [],
+                    Pets: new Set()
+                });
+            }
+
+            const profile = profilesMap.get(tel);
+            
+            // Add Pet Name and Booking Record (exclude USER_REG for brevity in the list)
+            if (record.BookingId !== 'USER_REG') {
+                 if (record.PetName && record.PetName !== 'N/A') {
+                     profile.Pets.add(`${record.PetName} (${record.PetSpecies || '-'})`);
+                 }
+                profile.Bookings.push(record);
+            }
+        });
+
+        let profilesArray = Array.from(profilesMap.values());
+        
+        // 2. กรองข้อมูลตามคำค้นหา
+        if (searchTerm) {
+            const lowerCaseSearch = searchTerm.toLowerCase();
+            profilesArray = profilesArray.filter(profile => 
+                profile.OwnerName.toLowerCase().includes(lowerCaseSearch) ||
+                profile.OwnerTelDisplay.includes(lowerCaseSearch) ||
+                profile.OwnerEmail.toLowerCase().includes(lowerCaseSearch) ||
+                Array.from(profile.Pets).some(pet => pet.toLowerCase().includes(lowerCaseSearch))
+            );
+        }
+
+        memberCount.textContent = `👤 พบข้อมูลสมาชิก: ${profilesArray.length} รายการ`;
+
+        if (profilesArray.length === 0) {
+            memberProfilesList.innerHTML = `
+                <p style="text-align: center; color: #6c757d; padding: 20px; border: 1px dashed #ccc; border-radius: 8px;">
+                    ⚠️ ไม่พบข้อมูลสมาชิกหรือสัตว์เลี้ยงตามเงื่อนไข
+                </p>`;
+            return;
+        }
+
+        let cardsHTML = '';
+        profilesArray.forEach(profile => {
+            const petList = Array.from(profile.Pets).join(', ') || 'ไม่มีข้อมูลสัตว์เลี้ยง';
+            
+            // Sort bookings by date descending
+            profile.Bookings.sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp));
+            
+            const latestBooking = profile.Bookings[0] ? 
+                `ล่าสุด: ${profile.Bookings[0].BookingDate} (${profile.Bookings[0].ServiceType}, สถานะ: ${profile.Bookings[0].Status})` : 
+                'ไม่เคยมีการจองคิว';
+
+            cardsHTML += `
+                <div class="user-profile-box" style="background: #f7f9fb; border: 1px solid #e0e0e0; margin-bottom: 20px;">
+                    <h3 style="color: #004d99; border-bottom: 2px solid #004d99; padding-bottom: 5px; margin-bottom: 10px;">
+                        <i class="fas fa-id-badge"></i> ${profile.OwnerName}
+                    </h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <p><strong><i class="fas fa-phone"></i> เบอร์โทร:</strong> ${profile.OwnerTelDisplay}</p>
+                        <p><strong><i class="fas fa-envelope"></i> อีเมล:</strong> ${profile.OwnerEmail}</p>
+                        <p style="grid-column: 1 / 3;"><strong><i class="fas fa-paw"></i> สัตว์เลี้ยงที่เกี่ยวข้อง:</strong> ${petList}</p>
+                        <p style="grid-column: 1 / 3; font-size: 0.9em; color: #6c757d;">
+                             <strong><i class="fas fa-history"></i> ประวัติการจอง:</strong> ${profile.Bookings.length} ครั้ง (${latestBooking})
+                        </p>
+                    </div>
+                </div>
+            `;
+        });
+
+        memberProfilesList.innerHTML = cardsHTML;
+    }
+
 
     function checkBookingLimit(date, time) {
         const bookings = loadBookings();
