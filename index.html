@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetCare Pro - Management System</title>
+    <title>PetCare Pro - Admin Control System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -52,82 +52,87 @@
                 <i class="fas fa-exclamation-circle text-4xl"></i>
                 <div>
                     <h4 class="font-extrabold text-xl">กรุณาเข้าสู่ระบบก่อน</h4>
-                    <p class="font-medium">เพื่อดึงข้อมูลสมาชิกและบันทึกประวัติการจอง</p>
+                    <p class="font-medium">เพื่อความปลอดภัยและดึงข้อมูลสมาชิกของคุณ</p>
                 </div>
             </div>
-            <button onclick="showPage('login')" class="bg-blue-700 text-white px-10 py-3 rounded-2xl font-bold text-lg hover:bg-blue-800">ล็อกอิน</button>
+            <button onclick="showPage('login')" class="bg-blue-700 text-white px-10 py-3 rounded-2xl font-bold text-lg hover:bg-blue-800 shadow-md">ล็อกอินทันที</button>
         </div>
 
         <form id="bookingForm" class="space-y-8 max-w-5xl mx-auto">
             <div class="form-section">
                 <div class="form-header"><i class="fas fa-id-card text-2xl"></i> ข้อมูลผู้จอง</div>
                 <div class="p-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div><label>ชื่อเจ้าของ</label><input type="text" id="ownerName" class="input-box bg-slate-100" readonly></div>
-                    <div><label>เบอร์โทรศัพท์</label><input type="text" id="ownerTel" class="input-box bg-slate-100" readonly></div>
+                    <div><label>ชื่อเจ้าของ</label><input type="text" id="ownerName" class="input-box bg-slate-100 border-slate-200" readonly placeholder="กรุณาล็อกอิน"></div>
+                    <div><label>เบอร์โทรศัพท์</label><input type="text" id="ownerTel" class="input-box bg-slate-100 border-slate-200" readonly placeholder="กรุณาล็อกอิน"></div>
                 </div>
             </div>
             <div class="form-section">
                 <div class="form-header"><i class="fas fa-paw text-2xl"></i> ข้อมูลสัตว์เลี้ยง</div>
-                <div class="p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div><label>ชื่อสัตว์เลี้ยง</label><input type="text" name="petName" class="input-box" required></div>
-                    <div><label>ชนิดสัตว์</label><select name="petType" class="input-box"><option>สุนัข</option><option>แมว</option><option>อื่นๆ</option></select></div>
-                    <div><label>สายพันธุ์</label><input type="text" name="petBreed" class="input-box"></div>
+                <div class="p-10 space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div><label>ชื่อสัตว์เลี้ยง</label><input type="text" name="petName" class="input-box" required></div>
+                        <div><label>ชนิดสัตว์</label><select name="petType" class="input-box font-bold"><option value="สุนัข">สุนัข</option><option value="แมว">แมว</option><option value="อื่นๆ">อื่นๆ</option></select></div>
+                        <div><label>สายพันธุ์</label><input type="text" name="petBreed" class="input-box"></div>
+                    </div>
                 </div>
             </div>
             <div class="form-section">
-                <div class="form-header"><i class="fas fa-calendar-check text-2xl"></i> รายละเอียดนัดหมาย</div>
+                <div class="form-header"><i class="fas fa-calendar-check text-2xl"></i> รายละเอียดการนัดหมาย</div>
                 <div class="p-10 space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div><label>บริการ</label><select name="serviceType" class="input-box"><option>ตรวจโรคทั่วไป</option><option>ทำวัคซีน</option><option>ตรวจเลือด</option></select></div>
-                        <div><label>วันที่</label><input type="date" name="bookingDate" class="input-box" required></div>
-                        <div><label>ช่วงเวลา</label><select name="bookingTime" class="input-box"><option>ช่วงเช้า (09:00 - 12:00)</option><option>ช่วงบ่าย (13:00 - 17:00)</option></select></div>
+                        <div><label>เลือกบริการ</label><select name="serviceType" class="input-box font-bold" required><option value="ตรวจโรคทั่วไป">ตรวจโรคทั่วไป</option><option value="ทำวัคซีน">ทำวัคซีน</option><option value="ตรวจเลือด">ตรวจเลือด</option></select></div>
+                        <div><label>วันที่นัดหมาย</label><input type="date" name="bookingDate" class="input-box" required></div>
+                        <div><label>ช่วงเวลา</label><select name="bookingTime" class="input-box font-bold" required><option value="ช่วงเช้า (09:00 - 12:00)">เช้า (09:00 - 12:00)</option><option value="ช่วงบ่าย (13:00 - 17:00)">บ่าย (13:00 - 17:00)</option></select></div>
                     </div>
                     <div><label>อาการที่พบ</label><textarea name="symptoms" class="input-box" rows="3"></textarea></div>
                 </div>
             </div>
-            <center><button type="submit" id="submitBtn" disabled class="btn-confirm">ยืนยันนัดหมาย <i class="fas fa-check"></i></button></center>
+            <div class="flex flex-col items-center py-10">
+                <button type="submit" id="submitBtn" disabled class="btn-confirm"><span>ยืนยันนัดหมาย</span> <i class="fas fa-arrow-right"></i></button>
+            </div>
         </form>
     </div>
 
     <div id="adminPage" class="page-content">
-        <div class="flex justify-between items-center mb-8">
-            <h2 class="text-3xl font-black">รายการจองทั้งหมด</h2>
-            <button onclick="loadAdminData()" class="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold"><i class="fas fa-sync"></i> รีเฟรช</button>
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+            <h2 class="text-4xl font-black text-slate-900 italic">รายการจองทั้งหมด</h2>
+            <button onclick="loadAdminData()" class="bg-blue-700 text-white px-8 py-4 rounded-xl font-bold shadow-lg italic"><i class="fas fa-sync-alt mr-2"></i> รีเฟรช</button>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-center">
-            <div class="admin-stat-card border-blue-600"><p>ทั้งหมด</p><h3 id="statTotal" class="text-4xl font-bold">0</h3></div>
-            <div class="admin-stat-card border-orange-500"><p>รอยืนยัน</p><h3 id="statPending" class="text-4xl font-bold text-orange-600">0</h3></div>
-            <div class="admin-stat-card border-green-600"><p>ยืนยันแล้ว</p><h3 id="statConfirmed" class="text-4xl font-bold text-green-600">0</h3></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="admin-stat-card border-blue-600"><p class="font-bold text-slate-500">ทั้งหมด</p><h3 id="statTotal" class="text-5xl font-black">0</h3></div>
+            <div class="admin-stat-card border-amber-500"><p class="font-bold text-slate-500">รอยืนยัน</p><h3 id="statPending" class="text-5xl font-black text-amber-600">0</h3></div>
+            <div class="admin-stat-card border-green-600"><p class="font-bold text-slate-500">ยืนยันแล้ว</p><h3 id="statConfirmed" class="text-5xl font-black text-green-700">0</h3></div>
         </div>
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
-            <table class="w-full text-left">
-                <thead class="bg-slate-800 text-white">
-                    <tr><th class="p-5">วัน-เวลา</th><th class="p-5">ลูกค้า/สัตว์เลี้ยง</th><th class="p-5">สถานะ</th><th class="p-5 text-center">จัดการ</th></tr>
-                </thead>
-                <tbody id="adminTableBody"></tbody>
-            </table>
+        <div class="bg-white rounded-[2rem] shadow-xl border-2 border-slate-200 overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead><tr class="bg-slate-900 text-white text-lg"><th class="p-6">วัน-เวลา</th><th class="p-6">ข้อมูลลูกค้า</th><th class="p-6 text-center">สถานะ</th><th class="p-6 text-center">จัดการ</th></tr></thead>
+                    <tbody id="adminTableBody" class="font-bold text-slate-800 italic"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <div id="loginPage" class="page-content auth-page">
         <div class="auth-card">
-            <h2 class="text-3xl font-bold mb-6">เข้าสู่ระบบ</h2>
-            <form onsubmit="doLogin(event)" class="space-y-4">
-                <input type="tel" id="loginTel" class="input-box text-center" placeholder="เบอร์โทรศัพท์" required>
-                <button type="submit" class="w-full bg-blue-700 text-white py-4 rounded-xl font-bold">เข้าสู่ระบบ</button>
+            <h2 class="text-3xl font-extrabold mb-6">เข้าสู่ระบบ</h2>
+            <form onsubmit="doLogin(event)" class="space-y-6">
+                <input type="tel" id="loginTel" class="input-box text-center text-2xl" placeholder="เบอร์โทรศัพท์" required maxlength="10">
+                <button type="submit" class="w-full bg-blue-700 text-white py-4 rounded-xl font-bold text-xl">ล็อกอิน</button>
             </form>
-            <button onclick="showPage('register')" class="mt-4 text-blue-600 font-bold">สมัครสมาชิกใหม่</button>
+            <button onclick="showPage('register')" class="mt-6 text-blue-700 font-bold">ยังไม่เป็นสมาชิก? สมัครเลย</button>
         </div>
     </div>
 
     <div id="registerPage" class="page-content auth-page">
         <div class="auth-card text-left">
-            <h2 class="text-2xl font-bold mb-6 text-center">สมัครสมาชิก</h2>
+            <h2 class="text-2xl font-extrabold mb-6 text-center">สมัครสมาชิก</h2>
             <form onsubmit="doRegister(event)" class="space-y-4">
-                <label>ชื่อ-นามสกุล</label><input type="text" id="regName" class="input-box" required>
-                <label>เบอร์โทรศัพท์</label><input type="tel" id="regTel" class="input-box" required maxlength="10">
-                <button type="submit" class="w-full bg-blue-700 text-white py-4 rounded-xl font-bold mt-4">สมัครสมาชิก</button>
+                <div><label>ชื่อ-นามสกุล</label><input type="text" id="regName" class="input-box" required></div>
+                <div><label>เบอร์โทรศัพท์</label><input type="tel" id="regTel" class="input-box" required maxlength="10"></div>
+                <button type="submit" class="w-full bg-blue-700 text-white py-4 rounded-xl font-bold text-xl mt-4">สมัครสมาชิก</button>
             </form>
+            <button onclick="showPage('login')" class="mt-4 text-slate-500 block text-center w-full font-bold">ย้อนกลับ</button>
         </div>
     </div>
 </div>
@@ -140,6 +145,7 @@
         const target = document.getElementById(pageId + 'Page') || document.getElementById(pageId);
         if(target) target.classList.add('page-active');
         updateUI();
+        window.scrollTo(0,0);
     }
 
     function toggleLoader(show) { document.getElementById('loader').style.display = show ? 'flex' : 'none'; }
@@ -152,12 +158,79 @@
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('ownerName').value = user.name;
             document.getElementById('ownerTel').value = user.tel;
-            nav.innerHTML = `<button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg font-bold">ออก</button>`;
+            nav.innerHTML = `<button onclick="logout()" class="text-white font-bold bg-red-600 px-6 py-2 rounded-xl">ออก</button>`;
         } else {
-            nav.innerHTML = ``;
+            if(document.getElementById('loginAlert')) document.getElementById('loginAlert').style.display = 'flex';
+            document.getElementById('submitBtn').disabled = true;
+            nav.innerHTML = `<button onclick="showPage('login')" class="bg-blue-700 text-white px-8 py-2 rounded-xl font-bold">เข้าสู่ระบบ</button>`;
         }
     }
 
+    async function loadAdminData() {
+        toggleLoader(true);
+        try {
+            const res = await fetch(SCRIPT_URL);
+            const data = await res.json();
+            
+            // กรองเฉพาะการจองจริง (ไม่ใช่ข้อมูลสมัครสมาชิก)
+            const bookings = data.filter(d => d.BookingId && d.BookingId.startsWith('BK-')).reverse();
+            
+            document.getElementById('statTotal').innerText = bookings.length;
+            document.getElementById('statPending').innerText = bookings.filter(b => b.Status === 'รอยืนยัน').length;
+            document.getElementById('statConfirmed').innerText = bookings.filter(b => b.Status === 'ยืนยันนัดหมายแล้ว').length;
+
+            const tableBody = document.getElementById('adminTableBody');
+            tableBody.innerHTML = bookings.map(b => {
+                // แก้ปัญหา undefined โดยการตรวจสอบชื่อตัวแปรทั้งตัวเล็กและใหญ่
+                const date = b.bookingDate || b.BookingDate || '-';
+                const time = b.bookingTime || b.BookingTime || '';
+                const owner = b.OwnerName || b.ownerName || 'ไม่ระบุชื่อ';
+                const pet = b.petName || b.PetName || 'ไม่ระบุ';
+                const type = b.petType || b.PetType || '';
+                const status = b.Status || b.status || 'รอยืนยัน';
+                const tel = b.OwnerTel || b.ownerTel || '';
+
+                return `
+                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                    <td class="p-6">${date}<br><span class="text-blue-600 text-sm font-normal">${time}</span></td>
+                    <td class="p-6"><span>${owner}</span><br><span class="text-blue-500 text-sm font-normal">น้อง ${pet} (${type})</span></td>
+                    <td class="p-6 text-center">
+                        <span class="px-4 py-1 rounded-full text-sm font-bold shadow-sm ${status === 'รอยืนยัน' ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-700'}">
+                            ${status}
+                        </span>
+                    </td>
+                    <td class="p-6">
+                        <div class="flex justify-center gap-2">
+                            <a href="tel:${tel}" class="bg-green-600 text-white w-10 h-10 flex items-center justify-center rounded-lg shadow hover:scale-110 transition-transform"><i class="fas fa-phone"></i></a>
+                            ${status === 'รอยืนยัน' ? 
+                                `<button onclick="confirmBooking('${b.BookingId}')" class="bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-lg shadow hover:scale-110 transition-transform"><i class="fas fa-check text-sm"></i></button>` : 
+                                `<button class="bg-slate-200 text-slate-400 w-10 h-10 flex items-center justify-center rounded-lg cursor-not-allowed" disabled><i class="fas fa-check-double text-sm"></i></button>`
+                            }
+                            <button onclick="alert('อาการเพิ่มเติม: ${b.symptoms || b.Symptoms || "-"}')" class="bg-slate-800 text-white w-10 h-10 flex items-center justify-center rounded-lg shadow"><i class="fas fa-info-circle text-sm"></i></button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        } catch (e) { alert("โหลดข้อมูลล้มเหลว"); }
+        toggleLoader(false);
+    }
+
+    async function confirmBooking(id) {
+        if(!confirm("ต้องการยืนยันนัดหมายนี้ใช่หรือไม่?")) return;
+        toggleLoader(true);
+        try {
+            const payload = { action: 'UPDATE', BookingId: id, Status: 'ยืนยันนัดหมายแล้ว' };
+            const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+            const result = await res.json();
+            if(result.result === 'success') {
+                alert('ยืนยันสำเร็จ!');
+                await loadAdminData(); // สำคัญ: โหลดข้อมูลใหม่ทันทีเพื่อให้สถานะเปลี่ยน
+            }
+        } catch (err) { alert('ยืนยันไม่สำเร็จ'); }
+        toggleLoader(false);
+    }
+
+    // ฟังก์ชันอื่นๆ คงเดิม
     async function doLogin(e) {
         e.preventDefault();
         toggleLoader(true);
@@ -165,12 +238,12 @@
         try {
             const res = await fetch(SCRIPT_URL);
             const data = await res.json();
-            const user = data.find(r => r.OwnerTel == tel && r.BookingId === 'USER_REG');
+            const user = data.find(r => (r.OwnerTel == tel || r.ownerTel == tel) && r.BookingId === 'USER_REG');
             if (user) {
-                localStorage.setItem('petUser', JSON.stringify({name: user.OwnerName, tel: user.OwnerTel}));
+                localStorage.setItem('petUser', JSON.stringify({name: user.OwnerName || user.ownerName, tel: user.OwnerTel || user.ownerTel}));
                 showPage('booking');
-            } else { alert('ไม่พบเบอร์นี้ในระบบ!'); }
-        } catch (err) { alert('เชื่อมต่อผิดพลาด'); }
+            } else { alert('ไม่พบข้อมูลสมาชิก!'); }
+        } catch (err) { alert('ข้อผิดพลาดการเชื่อมต่อ'); }
         toggleLoader(false);
     }
 
@@ -179,9 +252,10 @@
         toggleLoader(true);
         const payload = { action: 'INSERT', BookingId: 'USER_REG', Status: 'Registered', OwnerName: document.getElementById('regName').value, OwnerTel: document.getElementById('regTel').value };
         try {
-            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-            alert('สมัครสำเร็จ!'); showPage('login');
-        } catch (err) { alert('สมัครล้มเหลว'); }
+            const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+            const result = await res.json();
+            if(result.result === 'success') { alert('สมัครสำเร็จ!'); showPage('login'); }
+        } catch (err) { alert('สมัครไม่สำเร็จ'); }
         toggleLoader(false);
     }
 
@@ -190,10 +264,11 @@
         toggleLoader(true);
         const user = JSON.parse(localStorage.getItem('petUser'));
         const formData = new FormData(e.target);
-        const payload = { action: 'INSERT', BookingId: 'BK-'+Date.now(), Status: 'รอยืนยัน', OwnerName: user.name, OwnerTel: user.tel, ...Object.fromEntries(formData) };
+        const payload = { action: 'INSERT', BookingId: 'BK-' + Date.now(), Status: 'รอยืนยัน', OwnerName: user.name, OwnerTel: user.tel, ...Object.fromEntries(formData) };
         try {
-            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-            alert('จองคิวสำเร็จ!'); e.target.reset(); updateUI();
+            const res = await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
+            const result = await res.json();
+            if(result.result === 'success') { alert('จองสำเร็จ!'); e.target.reset(); updateUI(); }
         } catch (err) { alert('ส่งข้อมูลไม่สำเร็จ'); }
         toggleLoader(false);
     };
@@ -201,53 +276,7 @@
     function loginAdmin() {
         const pw = prompt("รหัสผ่านเจ้าหน้าที่:");
         if(pw === "1234") { showPage('admin'); loadAdminData(); }
-    }
-
-    async function loadAdminData() {
-        toggleLoader(true);
-        try {
-            const res = await fetch(SCRIPT_URL);
-            const data = await res.json();
-            const bookings = data.filter(d => d.BookingId && d.BookingId.startsWith('BK-')).reverse();
-            
-            document.getElementById('statTotal').innerText = bookings.length;
-            document.getElementById('statPending').innerText = bookings.filter(b => b.Status === 'รอยืนยัน').length;
-            document.getElementById('statConfirmed').innerText = bookings.filter(b => b.Status === 'ยืนยันนัดหมายแล้ว').length;
-
-            const tableBody = document.getElementById('adminTableBody');
-            tableBody.innerHTML = bookings.map(b => `
-                <tr class="border-b">
-                    <td class="p-5">${b.bookingDate}<br><small>${b.bookingTime}</small></td>
-                    <td class="p-5">${b.OwnerName}<br><small class="text-blue-600">น้อง ${b.petName}</small></td>
-                    <td class="p-5">
-                        <span class="px-3 py-1 rounded-full text-xs font-bold ${b.Status === 'รอยืนยัน' ? 'bg-orange-100 text-orange-600' : 'bg-green-100 text-green-600'}">
-                            ${b.Status}
-                        </span>
-                    </td>
-                    <td class="p-5 text-center">
-                        <div class="flex gap-2 justify-center">
-                            <a href="tel:${b.OwnerTel}" class="bg-green-500 text-white p-2 rounded-lg"><i class="fas fa-phone"></i></a>
-                            ${b.Status === 'รอยืนยัน' ? 
-                                `<button onclick="confirmBooking('${b.BookingId}')" class="bg-blue-600 text-white p-2 rounded-lg"><i class="fas fa-check"></i></button>` : 
-                                `<button class="bg-slate-200 text-slate-400 p-2 rounded-lg" disabled><i class="fas fa-check-double"></i></button>`
-                            }
-                            <button onclick="alert('อาการ: ${b.symptoms || "-"}')" class="bg-slate-700 text-white p-2 rounded-lg"><i class="fas fa-info"></i></button>
-                        </div>
-                    </td>
-                </tr>`).join('');
-        } catch (e) { alert("โหลดล้มเหลว"); }
-        toggleLoader(false);
-    }
-
-    async function confirmBooking(id) {
-        if(!confirm("ยืนยันคิวนี้ใช่หรือไม่?")) return;
-        toggleLoader(true);
-        try {
-            const payload = { action: 'UPDATE', BookingId: id, Status: 'ยืนยันนัดหมายแล้ว' };
-            await fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-            alert('ยืนยันสถานะเรียบร้อย!'); loadAdminData(); // โหลดตารางใหม่เพื่อให้สถานะเปลี่ยนทันที
-        } catch (err) { alert('ยืนยันล้มเหลว'); }
-        toggleLoader(false);
+        else if(pw !== null) { alert("รหัสผ่านผิด"); }
     }
 
     function logout() { localStorage.removeItem('petUser'); location.reload(); }
