@@ -353,7 +353,7 @@
     // **********************************************
     // GLOBAL CONFIGURATION & SECRETS 
     // **********************************************
-    const STORAGE_KEY = 'pet_bookings_vscodesim';
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxaaGDEOTHQ2ziyrsUisUtlqqZ9kaMCIhxp8lC6TcxAP3XKok_YKMjifV6o8ONI-tFUpA/exec";
     const ADMIN_PASSWORD = '123456'; 
     const ADMIN_TOKEN_KEY = 'admin_session_token';
     const USER_TEL_KEY = 'user_session_tel';
@@ -368,20 +368,17 @@
     // 1. Core Logic (Local Storage Simulation)
     // **********************************************
 
-    function loadBookings() {
-        const json = localStorage.getItem(STORAGE_KEY);
-        try {
-             const data = json ? JSON.parse(json) : [];
-             if (!Array.isArray(data)) return [];
-             return data;
-        } catch (e) {
-            return [];
-        }
-    }
+    function submitBooking(data){
 
-    function saveBookings(bookings) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings));
-    }
+fetch(SCRIPT_URL,{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(r=>r.json())
+.then(()=>alert("จองคิวสำเร็จ"))
+.catch(()=>alert("เชื่อมต่อไม่ได้"));
+
+}
 
     function generateId() {
         return Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -476,24 +473,27 @@
         }
     }
 
-    function cancelBooking(bookingId) {
-        if (!confirm(`คุณต้องการยกเลิกการจองคิวรหัส: ${bookingId} ใช่หรือไม่? การกระทำนี้ไม่สามารถย้อนกลับได้`)) return;
+    function cancelBooking(bookingId){
 
-        const bookings = loadBookings();
-        
-        // กรองเอาคิวที่มี BookingId ตรงกันออก
-        const updatedBookings = bookings.filter(record => record.BookingId !== bookingId);
+if(!confirm("ต้องการยกเลิกคิว "+bookingId+" ใช่หรือไม่?")) return;
 
-        if (updatedBookings.length < bookings.length) {
-            saveBookings(updatedBookings);
-            alert(`✅ คิว ${bookingId} ถูกยกเลิกเรียบร้อยแล้ว`);
-            
-            // รีเฟรชหน้า User Dashboard
-            displayUserBookings(getUserSession());
-        } else {
-             alert(`❌ ไม่พบคิวรหัส ${bookingId} ที่สามารถยกเลิกได้`);
-        }
-    }
+fetch(SCRIPT_URL,{
+method:"POST",
+body:JSON.stringify({
+action:"cancel",
+bookingId:bookingId
+})
+})
+.then(r=>r.json())
+.then(()=>{
+
+alert("✅ ยกเลิกเรียบร้อย");
+displayUserBookings(getUserSession());
+
+})
+.catch(()=>alert("เชื่อมต่อ Server ไม่ได้"));
+
+}
     
     function requestCancelBooking(bookingId) {
         if (!confirm(`คุณต้องการยื่นเรื่องขอยกเลิกการจองคิวรหัส: ${bookingId} ใช่หรือไม่? การกระทำนี้จะต้องรอการอนุมัติจาก Admin`)) return;
@@ -790,57 +790,27 @@
         }, 800);
     }
     
-    function doRegister(e) {
-        e.preventDefault();
-        const name = document.getElementById('regName').value.trim();
-        const tel = document.getElementById('regTel').value.trim();
-        const email = document.getElementById('regEmail').value.trim();
-        const msgDiv = document.getElementById('authMessage');
-        const bookings = loadBookings();
-        
-        msgDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังดำเนินการ...';
-        msgDiv.className = 'msg-loading';
+    function doLogin(){
 
-        if (tel.length !== 10 || isNaN(tel)) {
-             msgDiv.className = 'msg-error';
-             msgDiv.innerHTML = '❌ กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (10 หลัก)';
-             return;
-        }
-
-        const isRegistered = bookings.some(record => record.OwnerTel === tel && record.Status === 'Registered');
-
-        if (isRegistered) {
-            msgDiv.className = 'msg-error';
-            msgDiv.innerHTML = '❌ เบอร์โทรศัพท์นี้ถูกลงทะเบียนแล้ว กรุณาเข้าสู่ระบบ';
-            return;
-        }
-        
-        setTimeout(() => {
-            const newRegistration = {
-                Timestamp: new Date().toLocaleString('th-TH'),
-                BookingId: 'USER_REG', 
-                Status: 'Registered',
-                OwnerName: name,
-                OwnerTel: tel,
-                OwnerEmail: email,
-                PetName: 'N/A',
-                ServiceType: 'N/A',
-                BookingDate: 'N/A',
-                BookingTime: 'N/A'
-            };
-
-            bookings.push(newRegistration);
-            saveBookings(bookings);
-            
-            msgDiv.className = 'msg-success';
-            msgDiv.innerHTML = `🎉 ลงทะเบียนสำเร็จ! กำลังนำไปหน้าเข้าสู่ระบบ...`;
-            
-            setTimeout(() => {
-                showLoginForm(false); 
-            }, 1500); 
-
-        }, 1000);
-    }
+fetch(SCRIPT_URL,{
+method:"POST",
+body:JSON.stringify({
+action:"login",
+username:loginUsername.value,
+password:loginPassword.value
+})
+})
+.then(r=>r.json())
+.then(d=>{
+if(d.result==="success"){
+sessionStorage.setItem("user",loginUsername.value);
+alert("ยินดีต้อนรับ "+d.fullname);
+showBooking();
+}else{
+alert("ชื่อผู้ใช้หรือรหัสผ่านผิด");
+}
+});
+}
 
     // **********************************************
     // 4. Form Prefill/Lock Logic
